@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flex Panels 💪</title>
+  <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+  <style>
+    html {
+      box-sizing: border-box;
+      background: #ffc600;
+      font-family: 'helvetica neue';
+      font-size: 20px;
+      font-weight: 200;
+    }
+    
+    body {
+      margin: 0;
+    }
+    
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/*                     OPTIONS MENU                                                        */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+     
+/* The sidepanel menu */
+.sidepanel {
+  height: 100%; /* Specify a height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
+}
+
+/* The sidepanel links */
+.sidepanel a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidepanel a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidepanel .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Style the button that is used to open the sidepanel */
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/*                     PICTURE PANELS                                                      */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+  
+.panels {
+      min-height: 100vh;
+      overflow: hidden; /* let us make things disappear */
+      display: flex;
+    }
+
+    .panel {
+      background: #6B0F9C;
+      box-shadow: inset 0 0 0 5px rgba(255,255,255,0.1);
+      color: white;
+      text-align: center;
+      align-items: center;
+      /* Safari transitionend event.propertyName === flex */
+      /* Chrome + FF transitionend event.propertyName === flex-grow */
+      transition:
+        font-size 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
+        flex 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
+        background 0.2s;
+      font-size: 20px;
+      background-size: cover;
+      background-position: center;
+      flex: 1;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel1 { background-image:url(https://source.unsplash.com/gYl-UtwNg_I/1500x1500); }
+    .panel2 { background-image:url(https://source.unsplash.com/rFKUFzjPYiQ/1500x1500); }
+    .panel3 { background-image:url(https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&cs=tinysrgb&w=1500&h=1500&fit=crop&s=967e8a713a4e395260793fc8c802901d); }
+    .panel4 { background-image:url(https://source.unsplash.com/ITjiVXcwVng/1500x1500); }
+    .panel5 { background-image:url(https://source.unsplash.com/3MNzGlQM7qs/1500x1500); }
+
+    /* Flex Items */
+    .panel > * {
+      margin: 0;
+      width: 100%;
+      transition: transform 0.5s;
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .panel > *:first-child { transform: translateY(-100%); }
+    .panel.open-active > *:first-child { transform: translateY(0); }
+    .panel > *:last-child { transform: translateY(100%); }
+    .panel.open-active > *:last-child { transform: translateY(0); }
+
+    .panel p {
+      text-transform: uppercase;
+      font-family: 'Amatic SC', cursive;
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
+      font-size: 2em;
+    }
+    
+    .panel p:nth-child(2) {
+      font-size: 4em;
+    }
+
+    .panel.open {
+      flex: 5;
+      font-size: 40px;
+    }
+    
+    @media only screen and (max-width: 600px) {
+      .panel p {
+        font-size: 1em;
+      }
+    }
+
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/*                     Right incoming slider (Text Edit )                              */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+
+
+.epl-panel-right- {
+  /*...*/
+  visibility: hidden;
+  transition: visibility 0s 0.6s;
+}
+
+.epl-panel-right---is-visible {
+  visibility: visible;
+  transition: visibility 0s 0s;
+}
+
+.epl-panel-right-__header {
+  /*...*/
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100px;
+  transition: transform 0.4s 0s;
+  transform: translateY(-50px);
+  background-color: aquamarine;
+  border: 3px solid rgb(75, 33, 173);
+  text-align: centerVerticalAndHorizontal;
+}
+
+
+/* If the text has multiple lines, add the following: */
+.centerVerticalAndHorizontal p {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.epl-panel-right---from-right .epl-panel-right-__header {
+  right: 0;
+}
+
+.epl-panel-right---from-left .epl-panel-right-__header {
+  left: 0;
+}
+
+.epl-panel-right---is-visible .epl-panel-right-__header {
+  transition: transform 0.3s 0.3s;
+  transform: translateY(0px);
+  border-width:medium;
+}
+
+.epl-panel-right-__container {
+  /*...*/
+  position: fixed;
+  width: 40%;
+  height: 100%;
+  top: 0;
+  transition: transform 0.3s 0.3s;
+  background-color: #f1f1f1;
+  border-color: blue;
+}
+
+.epl-panel-right---from-right .epl-panel-right-__container {
+  right: 0;
+  transform: translate3d(100%, 0, 0);
+}
+
+.epl-panel-right---from-left .epl-panel-right-__container {
+  left: 0;
+  transform: translate3d(-100%, 0, 0);
+}
+
+.epl-panel-right---is-visible .epl-panel-right-__container {
+  transform: translate3d(0, 0, 0);
+  transition-delay: 0s;
+}
+
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/*                     Top drop down slider (Image URL Edit )                              */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+ 
+.epl-panel-top-__header {
+  /*...*/
+  position: fixed;
+  top: 4px;
+  width: 100%;
+  height: 120px;
+  transition: transform 0.4s 0s;
+  transform: translateY(-50px);
+  background-color: aquamarine;
+  border: 3px solid rgb(75, 33, 173);
+  text-align: centerVerticalAndHorizontal;
+}
+
+.epl-panel-top-__container {
+  /*...*/
+  position: fixed;
+  width: 100%;
+  height: 70%;
+  top: 0;
+  transition: transform 0.3s 0.3s;
+  background-color: #f1f1f1;
+  border-color: blue;
+}
+
+
+.slider {
+	overflow-y: hidden;
+  width: 100%;
+  height: 80%;
+  top: 0;
+  transition: transform 0.3s 0.3s;
+  background-color: #f1f1f1;
+  border-color: blue;
+
+	transition-property: all;
+	transition-duration: .5s;
+	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/*                     CSS HELPERS                                                         */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+ 
+
+.closed {
+	max-height: 0;
+}
+
+.rightTableSpace {
+	/* margin-top: 101px; */
+	padding-top: 101px;
+	width: 100%;
+	}
+
+
+.button {
+color: #fff !important;
+text-transform: uppercase;
+text-decoration: none;
+background: #ed3330;
+padding: 20px;
+border-radius: 5px;
+display: inline-block;
+border: none;
+transition: all 0.4s ease 0s;
+}
+
+.button:hover  {
+background: #434343;
+letter-spacing: 1px;
+-webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+transition: all 0.4s ease 0s;
+}
+
+.buttonHollow {
+color: #fff !important;
+text-transform: uppercase;
+text-decoration: none;
+background: #60a3bc;
+padding: 20px;
+border-radius: 50px;
+display: inline-block;
+border: none;
+transition: all 0.4s ease 0s;
+text-align: center;
+}
+
+.buttonHollow:hover  {
+color: #ffffff !important;
+background: #f6b93b;
+border-color: #f6b93b !important;
+transition: all 0.4s ease 0s;
+}
+
+.buttonRounded {
+color: #20bf6b !important;
+text-transform: uppercase;
+background: #ffffff;
+padding: 20px;
+border: 4px solid #20bf6b !important;
+border-radius: 6px;
+display: inline-block;
+transition: all 0.3s ease 0s;
+}
+
+
+.buttonRounded:hover {
+color: #494949 !important;
+border-radius: 50px;
+border-color: #494949 !important;
+transition: all 0.3s ease 0s;
+}
+.hidden {
+      visibility: hidden;
+      overflow: hidden;
+      width: 0px;
+      height: 0px;
+}
+
+</style>
+
+<!--**************************************************************************************** -->
+<!--**************************************************************************************** -->
+<!--**************************************************************************************** -->
+<!--**************************************************************************************** -->
+<!--**************************************************************************************** -->
+<!--                     PAGE RAW HTML                                                       -->
+<!--**************************************************************************************** -->
+<!--**************************************************************************************** -->
+<!--**************************************************************************************** -->
+<!--**************************************************************************************** -->
+
+<!--**************************************************************************************** -->
+<!--                     Options                                                             -->
+<!--**************************************************************************************** -->
+
+<div id="optionsPanel" class="sidepanel">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="#" onclick="showPanelImageEdit()">Change Photos On Panels</a>
+  <a href="#" onclick="showPanelTextEdit()">Change Text On Panels</a>
+  <a href="#" onclick="showNumPanelsWide()">Change # of Panels Vertical</a>
+  <a href="#" onclick="showNumPanelsHigh()">Change # of Panels Horizontal</a>
+</div>
+<table width=100%>
+<td>
+  <button class="openbtn" onclick="openNav()">&#9776;Options</button>
+  <button id="previewButton" class="openbtn" onclick="previewChanges()">&#8773;Preview Change</button>
+</td>
+<td>
+  <div id="panelsWide" class="hidden"><label for="numPanelsWide"># of Panels Wide: </label><input id="lastNumPanelsWide" type="hidden" value="5" disable="true"><input id="numPanelsWide" type="text" value="5"><button onclick="updatePanelsWide()">Update</button></div>
+  <div id="panelsHigh" class="hidden"><label for="numPanelsHigh"># of Panels Wide: </label><input id="lastNumPanelsHigh" type="hidden" value="3" disable="true"><input id="numPanelsHigh" type="text" value="3"><button onclick="updatePanelsHigh()">Update</button></div>
+</td>
+<td style="text-align: right;">
+  <button class="openbtn"  onclick="resetDefaults()">&#9750;Defaults</button>
+</td>
+</table>
+
+<!--**************************************************************************************** -->
+<!--                     rig                                                                 -->
+<!--**************************************************************************************** -->
+
+
+<div id="rightSlideInPanel" class="epl-panel-right- epl-panel-right---from-right js-epl-panel-right--main">
+  <div class="epl-panel-right-__container">
+      <div id="textEditGridArea" class="epl-panel-right-__content">
+      <header class="epl-panel-right-__header">
+      <table align="center"><tr><td align="center" width=80%>        <p align="center">
+        Edit Panel Text Values
+        </p></td><td align="right"><p align="right"><a href="javascript:void(0)" class="closebtn" onclick="closeRightNav()">&times;</a></p></td></tr></table>  
+
+      </header>
+
+        <!-- TODO: Add edit grid -->
+
+        <table id="textGridEdit" border="2" width = '100%'></table>
+
+     </div> <!-- epl-panel-right-__content -->
+  </div> <!-- epl-panel-right-__container -->
+</div> <!-- epl-panel-right- -->
+
+<!--**************************************************************************************** -->
+<!--                     TOP                                                                 -->
+<!--**************************************************************************************** -->
+
+<div id="topSlider" class="hidden">
+  <div class="epl-panel-top-__container">
+    <div id="imageEditGridArea" class="epl-panel-top-__content">
+    <header class="epl-panel-top-__header">
+      <p></p><p>
+    <table align="center"><tr><td align="center" width=80%>        <p align="center">
+      Edit Panel Image Values
+      </p></td><td align="right"><p align="right"><a href="javascript:void(0)" class="closebtn" onclick="closeTopNav()">&times;</a></p></td></tr></table>  
+    </p>
+    </header>
+        <!-- TODO: Add edit grid -->
+        <table id="imageGridEdit" border="2" width = '100%'></table>
+
+  </div> <!-- epl-panel-top-__content -->
+</div> <!-- epl-panel-top-__container -->
+</div>
+
+
+    <SCRIPT language="JavaScript">
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/*                      Globals                                                            */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+     
+      /* TODO: get from cookie if it exist instead of using defaults */
+
+      /* Declare our globals for manipulation*/
+      /* default "starting" values */
+      let panelText = [
+        ["Hey"],
+        ["Let's"],
+        ["Dance"],
+        ["Give"],
+        ["Take"],
+        ["Receive"],
+        ["Experience"],
+        ["It"],
+        ["Today"],
+        ["Give"],
+        ["All"],
+        ["You Can"],          
+        ["Life"],
+        ["In"],
+        ["Motion"]          
+      ];
+
+      /* default "starting" values */
+      let panelImageURL = [
+       'https://images.unsplash.com/photo-1587678711204-ca6d3d2f1f3b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjYxNDV9&auto=format&fit=crop&w=500&q=60',
+       'https://images.unsplash.com/photo-1587733761351-c75905de4127?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+       'https://images.unsplash.com/photo-1587590640887-6017661a5b47?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjkxNzZ9&auto=format&fit=crop&w=500&q=60',
+       'https://images.unsplash.com/photo-1587656107490-098cfbac52fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+       'https://images.unsplash.com/photo-1587572581161-9232f5dcd287?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEwMDQ0N30&auto=format&fit=crop&w=500&q=60',    
+       'https://source.unsplash.com/gYl-UtwNg_I/1500x1500',
+       'https://source.unsplash.com/rFKUFzjPYiQ/1500x1500',
+       'https://images.unsplash.com/photo-1465188162913-8b5709d6d57?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&cs=tinysrgb&w=1500&h=1500&fit=crop&s=967e8a713a4e395260793fc8c802901d',
+       'https://source.unsplash.com/ITjiVXcwVng/1500x1500',
+       'https://source.unsplash.com/3MNzGlQM7qs/1500x1500'    
+      ];
+
+      let columnsWide = 5;
+      let rowsHigh = 3;
+
+      /* override values with cookies */
+      loadCookieValues();
+
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/*                      MAIN                                                               */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+ 
+
+    /* This is the actual page display */
+    displayPanels(columnsWide);
+
+    /* Get our panels after we have displayed them */
+    const panels = document.querySelectorAll('.panel');
+
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/*                      Displayers                                                         */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+    /* Open the options menu */
+    function toggleOpen() {
+      console.log('Hello');
+      try { closeRightNav(); } catch {}
+      try { closeTopNav();} catch {}
+      this.classList.toggle('open');
+    }
+
+    /* Give a panel focus */
+    function toggleActive(e) {
+      console.log(e.propertyName);
+      try { closeRightNav(); } catch {}
+      try { closeTopNav();} catch {}
+      if (e.propertyName.includes('flex')) {
+        this.classList.toggle('open-active');
+      }
+    }
+
+/* allow user to specify panels wide*/
+function showNumPanelsWide() {
+  try { closeNav(); } catch {}
+  console.log("showing panels wide entry");
+  document.getElementById("panelsWide").classList.remove("hidden");
+  document.getElementById("panelsHigh").classList.add("hidden");
+}
+
+/* allow user to specify panels high*/
+function showNumPanelsHigh() {
+  try { closeNav(); } catch {}
+  console.log("showing panels high entry");
+  document.getElementById("panelsHigh").classList.remove("hidden");
+  document.getElementById("panelsWide").classList.add("hidden");
+}
+
+/* Set the width of the sidebar to 250px (show it) */
+function openNav() {
+  try { closeNav(); } catch {}
+  try { closeTopNav();} catch {}
+  try { closeRightNav();} catch {}
+  document.getElementById("panelsWide").classList.add("hidden");
+  document.getElementById("optionsPanel").style.width = "250px";
+  document.getElementById("panelsHigh").classList.add("hidden");
+}
+
+/* show editor for text */
+function showPanelTextEdit() {
+  try { closeNav(); } catch {}
+  try { closeTopNav();} catch {}
+  console.log("showing panels text entry");
+  document.getElementById("rightSlideInPanel").classList.remove("epl-panel-right-");
+  document.getElementById("rightSlideInPanel").classList.add("epl-panel-right---is-visible");
+  tableCreateTextGrid();
+}
+
+/* show editor for images */
+function showPanelImageEdit() {
+  try { closeNav(); } catch {}
+  try { closeTopNav();} catch {}
+  console.log("showing panel image entry");
+  document.getElementById("topSlider").classList.remove("hidden");
+  document.getElementById("topSlider").classList.add("slider");
+  tableCreateImageGrid();
+}
+
+
+
+function displayPanels(panelsWide) {
+      document.write("<div class=\"panels\" id=\"panels\">");
+
+    /* initial panel count */
+    let panelCount = panelsWide;
+
+      let i = 0;
+      let panelLoop = 1;
+      /* TODO: loop through our panel count to breakup on the screen for size*/
+      for (panelLookp = 1; panelLoop<=panelCount; panelLoop++)
+      {
+          document.write("<div class=\"panel panel" + panelLoop + "\">");
+
+          for(i; i < (panelLoop*rowsHigh); i++)
+          { 
+            document.write("<p><label class=\"lable1\">" + panelText[i] + "</label></p>");
+          }
+
+          document.write("</div>");
+      }
+
+
+    document.write("</div>");
+    document.getElementById("previewButton").style.visibility = "hidden";
+
+    console.log(panelImageURL);
+
+}
+
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/*                      Handle closings and cleanup                                        */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/* Set the width of the sidebar to 0 (hide it) */
+function closeNav() {
+  document.getElementById("optionsPanel").style.width = "0";
+}
+
+function closeRightNav() {
+  console.log("closing right nav");
+  document.getElementById("rightSlideInPanel").classList.add("epl-panel-right-");
+  document.getElementById("rightSlideInPanel").classList.remove("epl-panel-right---is-visible");
+}
+
+function closeTopNav() {
+  console.log("closing top nav");
+  document.getElementById("topSlider").classList.add("hidden");
+  document.getElementById("topSlider").classList.remove("slider");
+}
+
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/*                           Builders                                                      */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+
+/* make a grid edit in javascript for our text values*/
+function tableCreateTextGrid() {
+  let panelBody = document.getElementById("textEditGridArea");
+  let currentTbl = document.getElementById("textGridEdit");
+  /* remove if already created*/
+
+ 
+  let tbl = document.createElement('table');
+  /* set styles of table for edit */
+  tbl.setAttribute("id", "textGridEdit");
+  tbl.style.width = '100%';
+  tbl.setAttribute('border', '2');
+  tbl.setAttribute('class', 'rightTableSpace')
+
+
+  let tbdy = document.createElement('tbody');
+  let arrayLength = panelText.length;
+  console.log(arrayLength);
+  let panelCount = arrayLength / rowsHigh;
+  console.log(panelCount);
+
+  let j = 1;
+  let i = 0;
+  let crtPnl = 1;
+
+  for (i = 0; i < arrayLength; i++) {
+
+    if((i % rowsHigh) === 0 || i === 0)
+    {
+      console.log(`Found new panel ${ panelText[i][0]}`)
+      /* Give us a header row*/
+      let headerTR = document.createElement('tr');
+      let td2 = document.createElement('td');
+      headerContent = document.createTextNode(`Panel # ${crtPnl} `); 
+      td2.appendChild(headerContent)
+      headerTR.appendChild(td2)
+      tbdy.appendChild(headerTR);
+      crtPnl++;
+    }
+
+    /* data rows */
+    let tr = document.createElement('tr');
+    let td = document.createElement('td');
+    let tb = document.createElement("INPUT");
+    tb.setAttribute("id", "panelText" + i);
+    tb.setAttribute("type", "text");
+    tb.setAttribute("value", panelText[i])
+    td.appendChild(tb)
+    tr.appendChild(td)
+    tbdy.appendChild(tr);
+  }
+
+  let tr = document.createElement('tr');
+  let td = document.createElement('td');
+  td.setAttribute('align', 'center');
+  let bt = document.createElement("input");
+  bt.type = "button";
+  bt.setAttribute('class', 'buttonHollow');
+  bt.setAttribute('name', "SaveText");
+  bt.setAttribute('value', "Save Changes");
+  td.appendChild(bt)
+   // Add event handler
+  bt.onclick = updatePanelText;
+  tr.appendChild(td)
+  tbdy.appendChild(tr);
+
+  tbl.appendChild(tbdy);
+
+  console.log(tbl);
+  /* panelBody.appendChild(tbl) */
+  panelBody.replaceChild(tbl, currentTbl);
+}
+
+
+/* make a grid edit in javascript for our text values*/
+function tableCreateImageGrid() {
+  let panelBody = document.getElementById("imageEditGridArea");
+  let currentTbl = document.getElementById("imageGridEdit");
+  /* remove if already created*/
+
+ 
+  let tbl = document.createElement('table');
+  /* set styles of table for edit */
+  tbl.setAttribute("id", "imageGridEdit");
+  tbl.style.width = '100%';
+  tbl.setAttribute('border', '2');
+  tbl.setAttribute('class', 'rightTableSpace')
+
+
+  let tbdy = document.createElement('tbody');
+  let arrayLength = panelImageURL.length;
+  console.log(arrayLength);
+
+  for (let i = 0; i <= arrayLength; i++) {
+
+    /* data rows */
+    let tr = document.createElement('tr');
+    let td1 = document.createElement('td');
+    let tb1 = headerContent = document.createTextNode( `Panel # ${i}:`); 
+    td1.style="width:10%";
+    td1.appendChild(tb1);
+    tr.appendChild(td1);
+
+
+    let td = document.createElement('td');
+    let tb = document.createElement("INPUT");
+    tb.setAttribute("id", "panelImageURL" + i);
+    tb.setAttribute("type", "text");
+    tb.style="width:90%";
+    tb.setAttribute("value", panelImageURL[i]);
+    td.appendChild(tb);
+    tr.appendChild(td);
+    tbdy.appendChild(tr);
+  }
+
+  let tr = document.createElement('tr');
+  let td = document.createElement('td');
+  td.setAttribute('align', 'center');
+  td.setAttribute('colspan', '2');
+  let bt = document.createElement("input");
+  bt.type = "button";
+  bt.setAttribute('class', 'buttonRounded');
+  bt.setAttribute('name', "SaveImages");
+  bt.setAttribute('value', "Save Changes");
+  td.appendChild(bt)
+   // Add event handler
+  bt.onclick = updatePanelImages;
+  tr.appendChild(td)
+  tbdy.appendChild(tr);
+
+  tbl.appendChild(tbdy);
+
+  console.log(tbl);
+  /* panelBody.appendChild(tbl) */
+  panelBody.replaceChild(tbl, currentTbl);
+}
+
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/*                           Updaters                                                      */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+/***************************************************************************************** */
+
+  /* use cookies to keep values and then we can rebuild with what the user set */
+  function previewChanges()
+  {
+    location.reload();
+    document.getElementById("previewButton").style.visibility = "hidden";
+  }
+ 
+
+  /* use cookies to keep values and then we can rebuild with what the user set */
+
+  function setCookie(name, value)
+  {
+    // let today = new Date();
+    // let expiry = new Date(today.getTime() + 30 * 24 * 3600 * 1000); // plus 30 days
+    // document.cookie=name + "=" + escape(value) + "; path=/; samesite=None; expires=" + expiry.toGMTString();
+
+    sessionStorage.setItem(name, value);
+
+  }
+
+  function getCookie(name)
+  {
+    // var re = new RegExp(name + "=([^;]+)");
+    // var value = re.exec(document.cookie);
+    //return (value != null) ? unescape(value[1]) : null;
+
+    return sessionStorage.getItem(name);
+  }
+
+  /* erase a setting by name */
+  function eraseCookie(name) {   
+      // document.cookie = name+'=; Max-Age=-99999999;'; 
+      sessionStorage.removeItem(name);
+      return "Erased"; 
+  }
+ 
+  /* user function to go back to defaults */
+  function resetDefaults() {   
+      sessionStorage.clear();
+      alert("Defaults Restored");
+      location.reload();
+      return "Reset"; 
+  }
+
+  /* show all values set that are not defaults (debug use)  */
+  function logSessionSettings() {
+    for(let i=0; i<localStorage.length; i++) 
+    {
+       let key = localStorage.key(i);
+       console.log(sessionStorage.getItem(key));
+     }
+  }
+ 
+ /* save all settings as default or currently set */
+ function storeCookieValues()  
+ {
+    /* save panel text */
+    for (let x = 0; x < panelText.length; x++) {
+      setCookie("panelText" + x, panelText[x])
+    }
+
+    /* save panel images */
+    for (let y = 0; y < panelImageURL.length; y++) {
+      setCookie("panelImageURL" + y, panelImageURL[y])
+    }
+
+    /* save number of panels wide */
+    setCookie("columnsWide", columnsWide);
+
+    /* save number of panels high */
+    setCookie("rowsHigh", rowsHigh);
+
+    return true;
+ }
+
+ /* get session values default or user defined */
+ function loadCookieValues() {
+
+    /* for logging purpose only and checking cookies for development : Remove after DEV or comment out */
+    console.log("Getting Cookies");
+    // if (document.cookie.match(/^(.*;)?\s*rowsHigh\s*=\s*[^;]+(.*)?$/)) {
+    //     console.log("Cookie found rowsHigh: " + getCookie("rowsHigh"));
+    // }
+    // if (document.cookie.match(/^(.*;)?\s*columnsWide\s*=\s*[^;]+(.*)?$/)) {
+    //     console.log("Cookie found columnsWide: " + getCookie("columnsWide"));
+    // }
+
+    // /* if we have the cookie saved, lets use the value.  Otherwise default it */
+    // rowsHigh = (document.cookie.match(/^(.*;)?\s*rowsHigh\s*=\s*[^;]+(.*)?$/)) ? getCookie("rowsHigh") : 3;
+    rowsHigh = getCookie("rowsHigh");
+    if (rowsHigh === null || rowsHigh < 0)
+       rowsHigh = 3;
+
+    // /* if we have the cookie saved, lets use the value.  Otherwise default it */
+    // columnsWide = (document.cookie.match(/^(.*;)?\s*columnsWide\s*=\s*[^;]+(.*)?$/)) ? getCookie("columnsWide") : 5;
+    columnsWide = getCookie("columnsWide");
+    if (columnsWide === null || columnsWide < 0)
+       columnsWide = 5;
+
+    // /* get panel text */
+    for (let x = 0; x < panelText.length; x++) {
+       if(sessionStorage.getItem("panelText" + x))
+         panelText[x] = sessionStorage.getItem("panelText" + x)
+    }
+
+    /* get panel images */
+    for (let y = 0; y < panelImageURL.length; y++) {
+      if(sessionStorage.getItem("panelImageURL" + y))
+         panelImageURL[y] = sessionStorage.getItem("panelImageURL" + y)
+    }
+
+  }
+
+
+ /* update the text on a message panel */
+ function updatePanelText() {
+  /* close it down and cleanup*/
+  closeRightNav();
+
+  /* TODO: save to globals / cookies and reset screen */
+  for (let x = 0; x < panelText.length; x++) {
+    /* logging only */
+    console.log(document.getElementById("panelText" + x).value);
+    panelText[x] = document.getElementById("panelText" + x).value;
+  }   
+  /* Make sure we see the changes on preview as well as changed in memory */
+  storeCookieValues();
+  document.getElementById("previewButton").style.visibility = "visible";
+  alert("Update Complete");
+}
+
+
+ /* update the text on a message panel */
+ function updatePanelImages() {
+   /* close it down and cleanup*/
+   closeTopNav();
+
+   /* TODO: save to globals / cookies and reset screen */
+   for (let y = 0; y < panelImageURL.length; y++) {
+    console.log(document.getElementById("panelImageURL" + y).value);
+    panelImageURL[y] = document.getElementById("panelImageURL" + y).value;
+   }
+
+   /* Make sure we see the changes on preview as well as changed in memory */
+   storeCookieValues();
+   document.getElementById("previewButton").style.visibility = "visible";
+   alert("Update Complete");
+}
+
+/* update our panels wide count*/
+function updatePanelsWide() {
+   /* TODO: update should check number of photos available*/
+   columnsWide = document.getElementById("numPanelsWide").value;
+   document.getElementById("panelsWide").classList.add("hidden");
+   /* TODO: update value for the display loop*/
+   console.log("updating panels wide");
+  //  let ourPanels = document.getElementById("panels");
+  //  ourPanels.remove();
+   /* Keep track of the last number before user change as we need to know what they did*/
+   document.getElementById("lastNumPanelsWide").value = document.getElementById("numPanelsWide").value;
+   document.getElementById("previewButton").style.visibility = "visible";
+
+  /* save number of panels wide for next view of page */
+  setCookie("columnsWide", columnsWide);
+
+}
+
+/* update our panels high count  */
+function updatePanelsHigh() {
+   /* TODO: update value for the display loop*/
+   rowsHigh = document.getElementById("numPanelsHigh").value;
+   console.log("updating panels high"); 
+   /* TODO: update should check number of photos available*/
+   document.getElementById("panelsHigh").classList.add("hidden");
+   /* Keep track of the last number before user change as we need to know what they did*/
+   document.getElementById("lastNumPanelsHigh").value = document.getElementById("numPanelsHigh").value;
+   /* Keep track of the last number before user change as we need to know what they did*/
+   console.log("new panel count" +  document.getElementById("lastNumPanelsHigh").value);
+   document.getElementById("previewButton").style.visibility = "visible";
+
+    /* save number of panels high  for next view of page */
+    setCookie("rowsHigh", rowsHigh);
+}
+
+/* handle opening photo and text sliding */
+panels.forEach(panel => panel.addEventListener('click', toggleOpen));
+/* put it back to original size */
+panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
+</script>
+
+</body>
+</html>
