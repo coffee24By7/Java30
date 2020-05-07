@@ -126,12 +126,7 @@
       flex-direction: column;
     }
 
-    .panel1 { background-image:url(https://source.unsplash.com/gYl-UtwNg_I/1500x1500); }
-    .panel2 { background-image:url(https://source.unsplash.com/rFKUFzjPYiQ/1500x1500); }
-    .panel3 { background-image:url(https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&cs=tinysrgb&w=1500&h=1500&fit=crop&s=967e8a713a4e395260793fc8c802901d); }
-    .panel4 { background-image:url(https://source.unsplash.com/ITjiVXcwVng/1500x1500); }
-    .panel5 { background-image:url(https://source.unsplash.com/3MNzGlQM7qs/1500x1500); }
-
+ 
     /* Flex Items */
     .panel > * {
       margin: 0;
@@ -170,6 +165,7 @@
       }
     }
 
+  
 /***************************************************************************************** */
 /***************************************************************************************** */
 /***************************************************************************************** */
@@ -506,8 +502,23 @@ transition: all 0.3s ease 0s;
         ["You Can"],          
         ["Life"],
         ["In"],
-        ["Motion"]          
-      ];
+        ["Motion"],          
+        ["Hey"],
+        ["Let's"],
+        ["Dance"],
+        ["Give"],
+        ["Take"],
+        ["Receive"],
+        ["Experience"],
+        ["It"],
+        ["Today"],
+        ["Give"],
+        ["All"],
+        ["You Can"],          
+        ["Life"],
+        ["In"],
+        ["Motion"] 
+        ];
 
       /* default "starting" values */
       let panelImageURL = [
@@ -626,15 +637,12 @@ function showPanelImageEdit() {
 function displayPanels(panelsWide) {
       document.write("<div class=\"panels\" id=\"panels\">");
 
-    /* initial panel count */
-    let panelCount = panelsWide;
-
       let i = 0;
       let panelLoop = 1;
       /* TODO: loop through our panel count to breakup on the screen for size*/
-      for (panelLookp = 1; panelLoop<=panelCount; panelLoop++)
+      for (panelLoop = 1; panelLoop<=panelsWide; panelLoop++)
       {
-          document.write("<div class=\"panel panel" + panelLoop + "\">");
+          document.write("<div class=\"panel panel" + panelLoop + "\" style=\"background-image:url(" + panelImageURL[panelLoop] + "); \">");
 
           for(i; i < (panelLoop*rowsHigh); i++)
           { 
@@ -715,7 +723,9 @@ function tableCreateTextGrid() {
   let i = 0;
   let crtPnl = 1;
 
-  for (i = 0; i < arrayLength; i++) {
+  console.log("Words To Edit: " + (columnsWide * rowsHigh));
+
+  for (i = 0; i < columnsWide * rowsHigh; i++) {
 
     if((i % rowsHigh) === 0 || i === 0)
     {
@@ -783,7 +793,7 @@ function tableCreateImageGrid() {
   let arrayLength = panelImageURL.length;
   console.log(arrayLength);
 
-  for (let i = 0; i <= arrayLength; i++) {
+  for (let i = 0; i <= columnsWide; i++) {
 
     /* data rows */
     let tr = document.createElement('tr');
@@ -972,54 +982,68 @@ function tableCreateImageGrid() {
 
  /* update the text on a message panel */
  function updatePanelImages() {
-   /* close it down and cleanup*/
-   closeTopNav();
+  /* close it down and cleanup*/
+  closeTopNav();
 
-   /* TODO: save to globals / cookies and reset screen */
-   for (let y = 0; y < panelImageURL.length; y++) {
+  /* TODO: save to globals / cookies and reset screen */
+  for (let y = 0; y < panelImageURL.length; y++) {
     console.log(document.getElementById("panelImageURL" + y).value);
     panelImageURL[y] = document.getElementById("panelImageURL" + y).value;
-   }
+  }
 
-   /* Make sure we see the changes on preview as well as changed in memory */
-   storeCookieValues();
-   document.getElementById("previewButton").style.visibility = "visible";
-   alert("Update Complete");
+  /* Make sure we see the changes on preview as well as changed in memory */
+  storeCookieValues();
+  document.getElementById("previewButton").style.visibility = "visible";
+  alert("Update Complete");
 }
 
 /* update our panels wide count*/
 function updatePanelsWide() {
-   /* TODO: update should check number of photos available*/
-   columnsWide = document.getElementById("numPanelsWide").value;
-   document.getElementById("panelsWide").classList.add("hidden");
-   /* TODO: update value for the display loop*/
-   console.log("updating panels wide");
+
+  if (parseInt(document.getElementById("numPanelsWide").value, 10) > 10 || parseInt(document.getElementById("numPanelsWide").value, 10) < 1)
+  {
+    alert("Panels Wide Can Be A  Number Between 1 and 10");
+  } else {
+
+  /* TODO: update should check number of photos available*/
+  columnsWide = document.getElementById("numPanelsWide").value;
+  document.getElementById("panelsWide").classList.add("hidden");
+  /* TODO: update value for the display loop*/
+  console.log("updating panels wide");
   //  let ourPanels = document.getElementById("panels");
   //  ourPanels.remove();
-   /* Keep track of the last number before user change as we need to know what they did*/
-   document.getElementById("lastNumPanelsWide").value = document.getElementById("numPanelsWide").value;
-   document.getElementById("previewButton").style.visibility = "visible";
+  /* Keep track of the last number before user change as we need to know what they did*/
+  document.getElementById("lastNumPanelsWide").value = document.getElementById("numPanelsWide").value;
+  document.getElementById("previewButton").style.visibility = "visible";
 
   /* save number of panels wide for next view of page */
   setCookie("columnsWide", columnsWide);
+
+ }
 
 }
 
 /* update our panels high count  */
 function updatePanelsHigh() {
-   /* TODO: update value for the display loop*/
-   rowsHigh = document.getElementById("numPanelsHigh").value;
-   console.log("updating panels high"); 
-   /* TODO: update should check number of photos available*/
-   document.getElementById("panelsHigh").classList.add("hidden");
-   /* Keep track of the last number before user change as we need to know what they did*/
-   document.getElementById("lastNumPanelsHigh").value = document.getElementById("numPanelsHigh").value;
-   /* Keep track of the last number before user change as we need to know what they did*/
-   console.log("new panel count" +  document.getElementById("lastNumPanelsHigh").value);
-   document.getElementById("previewButton").style.visibility = "visible";
+  if (parseInt(document.getElementById("numPanelsHigh").value, 10) > 3 || parseInt(document.getElementById("numPanelsHigh").value, 10) < 1)
+  {
+    alert("Panels High Can Be A Number Between 1 and 3");
+  } else {
+
+    /* TODO: update value for the display loop*/
+    rowsHigh = document.getElementById("numPanelsHigh").value;
+    console.log("updating panels high"); 
+    /* TODO: update should check number of photos available*/
+    document.getElementById("panelsHigh").classList.add("hidden");
+    /* Keep track of the last number before user change as we need to know what they did*/
+    document.getElementById("lastNumPanelsHigh").value = document.getElementById("numPanelsHigh").value;
+    /* Keep track of the last number before user change as we need to know what they did*/
+    console.log("new panel count" +  document.getElementById("lastNumPanelsHigh").value);
+    document.getElementById("previewButton").style.visibility = "visible";
 
     /* save number of panels high  for next view of page */
     setCookie("rowsHigh", rowsHigh);
+  }
 }
 
 /* handle opening photo and text sliding */
