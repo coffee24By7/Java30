@@ -422,7 +422,7 @@ transition: all 0.3s ease 0s;
   <div id="panelsHigh" class="hidden"><label for="numPanelsHigh"># of Panels Wide: </label><input id="lastNumPanelsHigh" type="hidden" value="3" disable="true"><input id="numPanelsHigh" type="text" value="3"><button onclick="updatePanelsHigh()">Update</button></div>
 </td>
 <td style="text-align: right;">
-  <button class="openbtn"  onclick="resetDefaults()">&#9750;Defaults</button>
+  <button class="openbtn"  onclick="resetDefaults()">&#9747;Defaults</button>
 </td>
 </table>
 
@@ -968,7 +968,7 @@ function tableCreateImageGrid() {
   closeRightNav();
 
   /* TODO: save to globals / cookies and reset screen */
-  for (let x = 0; x < panelText.length; x++) {
+  for (let x = 0; x < rowsHigh; x++) {
     /* logging only */
     console.log(document.getElementById("panelText" + x).value);
     panelText[x] = document.getElementById("panelText" + x).value;
@@ -986,7 +986,7 @@ function tableCreateImageGrid() {
   closeTopNav();
 
   /* TODO: save to globals / cookies and reset screen */
-  for (let y = 0; y < panelImageURL.length; y++) {
+  for (let y = 0; y < columnsWide; y++) {
     console.log(document.getElementById("panelImageURL" + y).value);
     panelImageURL[y] = document.getElementById("panelImageURL" + y).value;
   }
